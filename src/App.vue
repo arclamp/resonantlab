@@ -9,6 +9,14 @@ export default Vue.extend({
     ControlPanel,
     MainPage,
   },
+
+  data() {
+    return {
+      controls: true,
+      menuChoices: ['a', 'b', 'c'],
+      selected: '',
+    };
+  },
 });
 
 </script>
@@ -16,19 +24,32 @@ export default Vue.extend({
 <template>
   <v-app>
     <v-navigation-drawer
+      v-model="controls"
       app
       fixed
       clipped
-      permanent
     >
-      <control-panel />
+      <v-select
+        v-model="selected"
+        :items="menuChoices"
+        label="Example"
+        outlined
+        dense
+        class="pt-5"
+      />
+      <control-panel
+        :selected="selected"
+      />
     </v-navigation-drawer>
 
     <v-app-bar
       app
       clipped-left
     >
-      hello 1
+      <v-app-bar-nav-icon
+        @click="controls = !controls"
+      />
+      <span>Resonant Lab</span>
     </v-app-bar>
 
     <v-content>
